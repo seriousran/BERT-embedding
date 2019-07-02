@@ -12,25 +12,25 @@ wget https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-76
 unzip multi_cased_L-12_H-768_A-12.zip -d bert/
 ```
 
-### Run Test
+### Run a test
 ```bash
 python bert_embedding.py
 ```
 
-### Major Functions
-- bert.init()` #초기화
+### Major functions
+- `bert.init()` #초기화
 
-- bert.extract(sentence) #모든 결과 추출, 아래의 input and output에서 입출력 구조 자세히 설명
-- bert.extracts(sentences) #string list를 입력받음
+- `bert.extract(sentence)` #모든 결과 추출, 아래의 input and output에서 입출력 구조 자세히 설명
+- `bert.extracts(sentences)` #string list를 입력받음
 
-- bert.extract_v1(sentence) #embedding 값만 추출
-- bert.extracts_v1(sentences)
+- `bert.extract_v1(sentence)` #embedding 값만 추출
+- `bert.extracts_v1(sentences)`
 
-- bert.cal_dif_cls(result1, result2) #extract 혹은 extracts의 출력 결과를 이용하여 distance 계산
-- bert.cal_dif_cls_layer(result1, result2, layer_num) #위의 함수에서 특정 layer에 대해서만 계산
+- `bert.cal_dif_cls(result1, result2)` #extract 혹은 extracts의 출력 결과를 이용하여 distance 계산
+- `bert.cal_dif_cls_layer(result1, result2, layer_num)` #위의 함수에서 특정 layer에 대해서만 계산
 
 
-### input and output
+### Input and output
 - bert.extracts(sentences)
   - input: list of string
   - output: list of dict
