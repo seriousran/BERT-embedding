@@ -138,14 +138,49 @@ class BERT(object):
   def cal_dif_cls(self, emb1, emb2):
     dif = 0 
     for i in range(4):
-      dif +=  (math.sqrt(sum((np.asarray(emb1['features'][0]['layers'][i]['values'])
-                   - np.asarray(emb2['features'][0]['layers'][i]['values']))**2)))/768
+      dif += (math.sqrt(sum((np.asarray(emb1['features'][0]['layers'][i]['values'])
+                             - np.asarray(emb2['features'][0]['layers'][i]['values']))**2)/768))
     return dif
   
   def cal_dif_cls_layer(self, emb1, emb2, i):
-    dif = 0 
-    dif =  (math.sqrt(sum((np.asarray(emb1['features'][0]['layers'][i]['values'])
-                   - np.asarray(emb2['features'][0]['layers'][i]['values']))**2)))/768
+    dif = (math.sqrt(sum((np.asarray(emb1['features'][0]['layers'][i]['values'])
+                          - np.asarray(emb2['features'][0]['layers'][i]['values']))**2)/768))
+    return dif
+  
+  def cal_dif_keyword(emb1, emb2, keyword):
+    tokens = self._tokenizer.tokenize(keyword)
+    candidates = []
+
+    for emb in [emb1, emb2]:
+      tmp_values = []
+      sum_values = []
+      for k, feature in enumerate(emb['features']):
+        if feature['token'] == tokens[0]:
+          tmp = []
+          for t in range(len(tokens)):
+            tmp.append(emb['features'][k+t]['layers'])
+            if emb['features'][k+t]['token'] != tokens[t]:
+              break
+          if len(tmp) == len(tokens):
+            tmp_values = [1] * 768
+            sum_values = [tmp_values] * 4
+            for _ in tmp:
+              for i in range(4):
+                for j in range(768):
+                  sum_values[i][j] += _[i]['values'][j]
+            for i in range(4):
+              for j in range(768):
+                sum_values[i][j] = sum_values[i][j]
+            candidates.append(sum_values)
+            break
+
+    if len(candidates) < 2:
+      return -1
+
+    dif = 0
+    for i in range(4):
+      dif += (math.sqrt(sum((np.asarray(candidates[0][i])
+                             - np.asarray(candidates[1][i]))**2)/768))
     return dif
   
 if __name__ == "__main__":
