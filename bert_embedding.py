@@ -159,7 +159,7 @@ if __name__ == "__main__":
              '오늘은 날씨가 좋습니다. 맛집을 찾아 가볼까요? 아이들이 좋아하더라구요.',
              '보쌈집에서는 보쌈을 맛있게 하면 그만입니다.ㅋㅋ']
 
-  results = bert.extracts_v2(sentences)
+  results = bert.extracts_(sentences)
   
   distances = []
   for i in range(len(results)):
