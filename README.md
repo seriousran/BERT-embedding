@@ -122,10 +122,31 @@ OBS 독특한 연예뉴스(기획·연출·감수 윤경철, 작가 박은경·�
 오늘은 날씨가 좋습니다. 맛집을 찾아 가볼까요? 아이들이 좋아하더라구요.
 ```
 
+### Example 4 - 문장 내 특정 token의 embedding만 비교하기
+
+```python
+from bert_embedding import BERT
+bert = BERT()
+bert.init()
+
+sentences = ["마치 화보 컷을 방불케 한 이번 이미지는 해외 로케촬영 시 촬영된 컷으로 특히, 옐로우 컬러의 레트로한 틴트선글라스를 착용한 채 지프차를 운전하는 수지의 모습에서 기존의 청순한 모습과는 다른 도회적인 분위기와 한층 성숙해진 모습을 보여주며 극 중 캐릭터에 대한 기대감을 높였다.",
+'자본 유출과 서비스 수지 적자 폭이 커지며 경상 수지 적자를 향해 빠르게 다가가고 있어서다.',
+"[조연수 기자] 가수 겸 배우 수지가 국민 타이틀을 거머쥔 스타로 꼽혔다."]
+
+results = bert.extracts(sentences)
+
+for i in range(len(results)):
+  for j in range(len(results)):
+    print(sentences[i])
+    print(sentences[j])
+    cal_dif_keyword(results[i], results[j], '수지')
+```
+
+
 
 ## To Do List
 - [x] Define class
 - [x] embedding 쉽게 추출하기
 - [x] CLS만을 이용해 문장의 distance 계산하기
 - [ ] 문장 내 모든 token들의 embedding을 이용해 distance 계산하기
-- [ ] 문장 내 특정 token만 비교하기 (예: 경제의 '수지'와 연예의 '수지' 값의 차이 확인하기)
+- [x] 문장 내 특정 token만 비교하기 (예: 경제의 '수지'와 연예의 '수지' 값의 차이 확인하기)

@@ -4,14 +4,15 @@ import collections
 import math
 import numpy as np
 import tensorflow as tf
-sys.path.append("bert")
-import modeling, tokenization
-from extract_features import input_fn_builder, model_fn_builder, convert_examples_to_features, InputExample
+from bert import modeling, tokenization
+from bert.extract_features import input_fn_builder, model_fn_builder, convert_examples_to_features, InputExample
 
 tf.logging.set_verbosity(tf.logging.ERROR)
 
+curr_path = os.path.dirname(os.path.realpath(__file__))
+
 # https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-768_A-12.zip
-DIR = 'bert/'
+DIR = curr_path + '/bert/'
 MODEL_DIR  = DIR + 'multi_cased_L-12_H-768_A-12/'
 CONFIG = MODEL_DIR + 'bert_config.json'
 CKPT  = MODEL_DIR + 'bert_model.ckpt'
@@ -147,7 +148,7 @@ class BERT(object):
                           - np.asarray(emb2['features'][0]['layers'][i]['values']))**2)/768))
     return dif
   
-  def cal_dif_keyword(emb1, emb2, keyword):
+  def cal_dif_keyword(self, emb1, emb2, keyword):
     tokens = self._tokenizer.tokenize(keyword)
     candidates = []
 
