@@ -148,5 +148,5 @@ for i in range(len(results)):
 - [x] Define class
 - [x] embedding 쉽게 추출하기
 - [x] CLS만을 이용해 문장의 distance 계산하기
-- [ ] 문장 내 모든 token들의 embedding을 이용해 distance 계산하기
+- [x] 문장 내 모든 token들의 embedding을 이용해 distance 계산하기
 - [x] 문장 내 특정 token만 비교하기 (예: 경제의 '수지'와 연예의 '수지' 값의 차이 확인하기)
